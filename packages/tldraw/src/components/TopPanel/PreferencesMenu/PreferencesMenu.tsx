@@ -10,6 +10,18 @@ export function PreferencesMenu() {
 
   const settings = app.useStore(settingsSelector)
 
+  const toggleDrawWithPen = React.useCallback(() => {
+    app.setSetting('drawWithPen', (v) => !v)
+  }, [app])
+
+  const toggleDrawWithMouse = React.useCallback(() => {
+    app.setSetting('drawWithMouse', (v) => !v)
+  }, [app])
+
+  const toggleDrawWithFinger = React.useCallback(() => {
+    app.setSetting('drawWithFinger', (v) => !v)
+  }, [app])
+
   const toggleDebugMode = React.useCallback(() => {
     app.setSetting('isDebugMode', (v) => !v)
   }, [app])
@@ -70,6 +82,28 @@ export function PreferencesMenu() {
         id="TD-MenuItem-Preferences-Debug_Mode"
       >
         Debug Mode
+      </DMCheckboxItem>
+      <DMDivider />
+      <DMCheckboxItem
+        checked={settings.drawWithPen}
+        onCheckedChange={toggleDrawWithPen}
+        id="TD-MenuItem-Preferences-Draw_With_Pen"
+      >
+        Draw with Pen
+      </DMCheckboxItem>
+      <DMCheckboxItem
+        checked={settings.drawWithMouse}
+        onCheckedChange={toggleDrawWithMouse}
+        id="TD-MenuItem-Preferences-Draw_With_Mouse"
+      >
+        Draw with Mouse
+      </DMCheckboxItem>
+      <DMCheckboxItem
+        checked={settings.drawWithFinger}
+        onCheckedChange={toggleDrawWithFinger}
+        id="TD-MenuItem-Preferences-Draw_With_Finger"
+      >
+        Draw with Finger
       </DMCheckboxItem>
       <DMDivider />
       <DMCheckboxItem

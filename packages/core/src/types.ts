@@ -291,6 +291,7 @@ export interface TLPointerInfo<T extends string = string> {
   metaKey: boolean
   altKey: boolean
   spaceKey: boolean
+  type: string
 }
 
 export interface TLKeyboardInfo {

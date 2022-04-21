@@ -80,7 +80,7 @@ export default function App(): JSX.Element {
 
   return (
     <div className="tldraw">
-      <Tldraw id="electron" onMount={handleMount} autofocus showMenu={false} />
+      <Tldraw id="electron" onMount={handleMount} autofocus showMenu={true} showMultiplayerMenu={false} />
     </div>
   )
 }

@@ -978,7 +978,7 @@ export class TldrawApp extends StateManager<TDSnapshot> {
   }
 
   /**
-   * Toggle pen mode.
+   * Toggle focus mode.
    */
   toggleFocusMode = (): this => {
     if (this.session) return this
@@ -989,23 +989,6 @@ export class TldrawApp extends StateManager<TDSnapshot> {
         },
       },
       `settings:toggled_focus_mode`
-    )
-    this.persist()
-    return this
-  }
-
-  /**
-   * Toggle pen mode.
-   */
-  togglePenMode = (): this => {
-    if (this.session) return this
-    this.patchState(
-      {
-        settings: {
-          isPenMode: !this.settings.isPenMode,
-        },
-      },
-      `settings:toggled_pen_mode`
     )
     this.persist()
     return this
@@ -1917,10 +1900,8 @@ export class TldrawApp extends StateManager<TDSnapshot> {
       // Put the element in the correct position relative to the common bounds
       elm.setAttribute(
         'transform',
-        `translate(${SVG_EXPORT_PADDING + shape.point[0] - commonBounds.minX}, ${
-          SVG_EXPORT_PADDING + shape.point[1] - commonBounds.minY
-        }) rotate(${((shape.rotation || 0) * 180) / Math.PI}, ${bounds.width / 2}, ${
-          bounds.height / 2
+        `translate(${SVG_EXPORT_PADDING + shape.point[0] - commonBounds.minX}, ${SVG_EXPORT_PADDING + shape.point[1] - commonBounds.minY
+        }) rotate(${((shape.rotation || 0) * 180) / Math.PI}, ${bounds.width / 2}, ${bounds.height / 2
         })`
       )
       return elm
@@ -2513,8 +2494,8 @@ export class TldrawApp extends StateManager<TDSnapshot> {
       shapes.length === 0
         ? 1
         : shapes
-            .filter((shape) => shape.parentId === currentPageId)
-            .sort((a, b) => b.childIndex - a.childIndex)[0].childIndex + 1
+          .filter((shape) => shape.parentId === currentPageId)
+          .sort((a, b) => b.childIndex - a.childIndex)[0].childIndex + 1
 
     const Text = shapeUtils[TDShapeType.Text]
 
@@ -2550,8 +2531,8 @@ export class TldrawApp extends StateManager<TDSnapshot> {
       shapes.length === 0
         ? 1
         : shapes
-            .filter((shape) => shape.parentId === currentPageId)
-            .sort((a, b) => b.childIndex - a.childIndex)[0].childIndex + 1
+          .filter((shape) => shape.parentId === currentPageId)
+          .sort((a, b) => b.childIndex - a.childIndex)[0].childIndex + 1
 
     const Shape = shapeUtils[type]
 
@@ -2752,8 +2733,8 @@ export class TldrawApp extends StateManager<TDSnapshot> {
         ? this.currentGrid * 4
         : 10
       : this.settings.showGrid
-      ? this.currentGrid
-      : 1
+        ? this.currentGrid
+        : 1
 
     return this.setState(Commands.translateShapes(this, ids, Vec.mul(delta, size)))
   }
@@ -2986,6 +2967,7 @@ export class TldrawApp extends StateManager<TDSnapshot> {
 
           this.onPointerDown(
             {
+              type: 'mouse',
               target: 'canvas',
               pointerId: 0,
               origin: info.point,
@@ -3047,6 +3029,7 @@ export class TldrawApp extends StateManager<TDSnapshot> {
 
         this.onPointerUp(
           {
+            type: 'mouse',
             target: 'canvas',
             pointerId: 0,
             origin: currentPoint,
@@ -3187,7 +3170,14 @@ export class TldrawApp extends StateManager<TDSnapshot> {
   /* ----------------- Pointer Events ----------------- */
 
   updateInputs: TLPointerEventHandler = (info) => {
-    this.currentPoint = this.getPagePoint(info.point).concat(info.pressure)
+    let pressure = info.pressure;
+    if (info.type == "pen") {
+      pressure = info.pressure * 2;
+      if (pressure > 1.0) {
+        pressure = 1;
+      }
+    }
+    this.currentPoint = this.getPagePoint(info.point).concat(pressure)
     this.shiftKey = info.shiftKey
     this.altKey = info.altKey
     this.ctrlKey = info.ctrlKey
@@ -3580,8 +3570,8 @@ export class TldrawApp extends StateManager<TDSnapshot> {
           if (shape.type === TDShapeType.Video) {
             asset.src = this.serializeVideo(shape.id)
             asset.type = TDAssetType.Image
-            // Cast shape to image shapes to properly display snapshots
-            ;(shape as unknown as ImageShape).type = TDShapeType.Image
+              // Cast shape to image shapes to properly display snapshots
+              ; (shape as unknown as ImageShape).type = TDShapeType.Image
           }
           // Patch asset table
           assets[shape.assetId] = asset
@@ -3678,8 +3668,10 @@ export class TldrawApp extends StateManager<TDSnapshot> {
 
   static defaultState: TDSnapshot = {
     settings: {
+      drawWithPen: true,
+      drawWithMouse: true,
+      drawWithFinger: true,
       isCadSelectMode: false,
-      isPenMode: false,
       isDarkMode: false,
       isZoomSnap: false,
       isFocusMode: false,

@@ -26,7 +26,12 @@ export class TextTool extends BaseTool {
     // noop
   }
 
-  onPointerDown: TLPointerEventHandler = () => {
+  onPointerDown: TLPointerEventHandler = (info) => {
+    if ((!this.app.settings.drawWithMouse && info.type == 'mouse') ||
+      (!this.app.settings.drawWithFinger && info.type == 'touch') ||
+      (!this.app.settings.drawWithPen && info.type == 'pen')) {
+      return;
+    }
     if (this.status === Status.Creating) {
       this.stopEditingShape()
       return

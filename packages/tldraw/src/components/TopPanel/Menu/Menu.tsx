@@ -31,7 +31,7 @@ const disableAssetsSelector = (s: TDSnapshot) => {
   return s.appState.disableAssets
 }
 
-export const Menu = React.memo(function Menu({ showSponsorLink, readOnly }: MenuProps) {
+export const Menu = React.memo(function Menu(this: any, { showSponsorLink, readOnly }: MenuProps) {
   const app = useTldrawApp()
 
   const numberOfSelectedIds = app.useStore(numberOfSelectedIdsSelector)
@@ -128,6 +128,7 @@ export const Menu = React.memo(function Menu({ showSponsorLink, readOnly }: Menu
       <DMTriggerIcon isSponsor={showSponsorLink} id="TD-MenuIcon">
         <HamburgerMenuIcon />
       </DMTriggerIcon>
+
       <DMContent variant="menu" id="TD-Menu">
         {showFileMenu && (
           <DMSubMenu label="File..." id="TD-MenuItem-File">
@@ -310,41 +311,6 @@ export const Menu = React.memo(function Menu({ showSponsorLink, readOnly }: Menu
         </DMSubMenu>
         <DMDivider dir="ltr" />
         <PreferencesMenu />
-        <DMDivider dir="ltr" />
-        <a href="https://github.com/Tldraw/Tldraw" target="_blank" rel="nofollow">
-          <DMItem id="TD-MenuItem-Github">
-            GitHub
-            <SmallIcon>
-              <GitHubLogoIcon />
-            </SmallIcon>
-          </DMItem>
-        </a>
-        <a href="https://twitter.com/Tldraw" target="_blank" rel="nofollow">
-          <DMItem id="TD-MenuItem-Twitter">
-            Twitter
-            <SmallIcon>
-              <TwitterLogoIcon />
-            </SmallIcon>
-          </DMItem>
-        </a>
-        <a href="https://discord.gg/SBBEVCA4PG" target="_blank" rel="nofollow">
-          <DMItem id="TD-MenuItem-Discord">
-            Discord
-            <SmallIcon>
-              <DiscordIcon />
-            </SmallIcon>
-          </DMItem>
-        </a>
-        {showSponsorLink && (
-          <a href="https://github.com/sponsors/steveruizok" target="_blank" rel="nofollow">
-            <DMItem isSponsor id="TD-MenuItem-Become_a_Sponsor">
-              Become a Sponsor{' '}
-              <SmallIcon>
-                <HeartIcon />
-              </SmallIcon>
-            </DMItem>
-          </a>
-        )}
         {showSignInOutMenu && (
           <>
             <DMDivider dir="ltr" />{' '}

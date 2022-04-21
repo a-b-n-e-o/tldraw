@@ -65,6 +65,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.type,
     }
 
     this.pointer = info
@@ -89,6 +90,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.type,
     }
 
     this.pointer = info
@@ -122,6 +124,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.type,
     }
 
     this.pointer = info
@@ -148,6 +151,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.pointerType,
     }
 
     this.pointer = info
@@ -175,6 +179,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.pointerType,
     }
 
     this.pointer = info
@@ -204,6 +209,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.pointerType,
     }
 
     this.pointer = info
@@ -235,6 +241,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.pointerType,
     }
 
     this.pointer = info
@@ -259,6 +266,7 @@ export class Inputs {
       metaKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: e.type,
     }
 
     this.pointer = info
@@ -367,6 +375,7 @@ export class Inputs {
       metaKey: Utils.isDarwin() ? metaKey : ctrlKey,
       altKey,
       spaceKey: this.keys[' '],
+      type: 'touch',
     }
 
     this.pointer = info

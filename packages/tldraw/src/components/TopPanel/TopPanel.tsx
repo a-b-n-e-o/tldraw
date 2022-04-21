@@ -32,10 +32,18 @@ export function TopPanel({
 }: TopPanelProps) {
   const app = useTldrawApp()
 
+  const dragHandlerStyle = {
+    WebkitAppRegion: "drag",
+    WebkitUserSelect: "none",
+    width: "10px",
+    backgroundColor: "#FF0000",
+  };
+
   return (
     <StyledTopPanel>
       {(showMenu || showPages) && (
         <Panel side="left" id="TD-MenuPanel">
+          <div style={dragHandlerStyle}></div>
           {showMenu && <Menu showSponsorLink={showSponsorLink} readOnly={readOnly} />}
           {showMultiplayerMenu && <MultiplayerMenu />}
           {showPages && <PageMenu />}

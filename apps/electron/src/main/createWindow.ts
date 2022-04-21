@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'path'
-import { format } from 'url'
 import { BrowserWindow } from 'electron'
 import { is } from 'electron-util'
 
@@ -15,15 +14,17 @@ export async function createWindow() {
     titleBarStyle: 'hidden',
     title: 'Tldraw',
     webPreferences: {
-      nodeIntegration: true,
-      devTools: true,
+      // nodeIntegration: true,
+      // devTools: false,
       preload: path.join(__dirname, 'preload.js'),
     },
     frame: false,
     show: false,
+    icon: path.join(__dirname, '../../resources/icon.png'),
   })
 
-  win.setWindowButtonVisibility(false)
+  win.setMenuBarVisibility(false);
+  // win.setWindowButtonVisibility(false)
 
   const isDev = is.development
 
@@ -34,7 +35,7 @@ export async function createWindow() {
   }
 
   win.setPosition(0, 0, false)
-  win.setSize(700, 1200)
+  // win.setSize(700, 1200)
 
   win.on('closed', () => {
     win = null

@@ -12,10 +12,14 @@ export class StickyTool extends BaseTool {
 
   /* ----------------- Event Handlers ----------------- */
 
-  onPointerDown: TLPointerEventHandler = () => {
+  onPointerDown: TLPointerEventHandler = (info) => {
     if (this.status === Status.Creating) {
       this.setStatus(Status.Idle)
-
+      if ((!this.app.settings.drawWithMouse && info.type == 'mouse') ||
+        (!this.app.settings.drawWithFinger && info.type == 'touch') ||
+        (!this.app.settings.drawWithPen && info.type == 'pen')) {
+        return;
+      }
       if (!this.app.appState.isToolLocked) {
         this.app.selectTool('select')
       }

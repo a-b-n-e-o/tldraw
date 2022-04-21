@@ -9,9 +9,13 @@ export class RectangleTool extends BaseTool {
 
   /* ----------------- Event Handlers ----------------- */
 
-  onPointerDown: TLPointerEventHandler = () => {
+  onPointerDown: TLPointerEventHandler = (info) => {
     if (this.status !== Status.Idle) return
-
+    if ((!this.app.settings.drawWithMouse && info.type == 'mouse') ||
+      (!this.app.settings.drawWithFinger && info.type == 'touch') ||
+      (!this.app.settings.drawWithPen && info.type == 'pen')) {
+      return;
+    }
     const {
       currentPoint,
       currentGrid,

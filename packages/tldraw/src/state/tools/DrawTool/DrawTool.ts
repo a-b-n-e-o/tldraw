@@ -37,11 +37,18 @@ export class DrawTool extends BaseTool {
   /* ----------------- Event Handlers ----------------- */
 
   onPointerDown: TLPointerEventHandler = (info) => {
+    if ((!this.app.settings.drawWithMouse && info.type == 'mouse') ||
+      (!this.app.settings.drawWithFinger && info.type == 'touch') ||
+      (!this.app.settings.drawWithPen && info.type == 'pen')) {
+      return;
+    }
+
     if (this.status !== Status.Idle) return
     const {
       currentPoint,
       appState: { currentPageId, currentStyle },
     } = this.app
+
     const previous = this.lastShapeId && this.app.getShape(this.lastShapeId)
     if (info.shiftKey && previous) {
       // Extend the previous shape

@@ -1,9 +1,9 @@
 {
-  "name": "@tldraw/electron",
-  "version": "1.6.1",
+  "name": "tldraw",
+  "version": "1.0.0",
   "private": true,
-  "description": "An electron app for tldraw.",
-  "author": "@steveruizok",
+  "description": "TL;DRaw",
+  "author": "Abneo",
   "license": "MIT",
   "keywords": [
     "react",
@@ -15,7 +15,7 @@
     "start:electron": "yarn dev",
     "build:apps": "yarn build:electron",
     "build:electron": "electron-esbuild build",
-    "package": "electron-builder"
+    "package": "electron-builder --win"
   },
   "devDependencies": {
     "@tldraw/tldraw": "^1.6.1",
@@ -35,7 +35,7 @@
     "typescript": "4.5.5"
   },
   "build": {
-    "appId": "io.comp.tldraw-electron",
+    "appId": "com.abneo.tldraw",
     "productName": "tldraw",
     "extraMetadata": {
       "name": "tldraw",
@@ -74,6 +74,5 @@
       "buildResources": "resources"
     },
     "publish": null
-  },
-  "gitHead": "a7dac0f83ad998e205c2aab58182cb4ba4e099a6"
+  }
 }
